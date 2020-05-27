@@ -31,7 +31,7 @@ Finally Using The ML.NET There two machine learning cocept will be implemented i
 
 2)Image Processing (To Get is the teacher is uploading proper videos).
 
-#Objective
+# Objective
 
 Because this project will be built in Web API and ASP.NET Core MVC and there will be a access
 JWT Token for every user this project can be implemented in any platfrom using API concept.
