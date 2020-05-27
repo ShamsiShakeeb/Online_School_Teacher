@@ -15,7 +15,7 @@ saved to the database. By Every Login of specific teacher the token will be veri
 and return true if the Token is valid else return false; 
 
 Admin Can Block a Teacher and Renew the JWT_Token of Teachers.
-Admin Can Create a Course.
+Admin Can Create a Courses.
 
 # Future Concept
 
