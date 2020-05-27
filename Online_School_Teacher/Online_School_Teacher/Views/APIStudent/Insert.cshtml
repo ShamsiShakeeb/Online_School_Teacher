@@ -1,0 +1,85 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Insert</title>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+
+    <script>
+
+        $(document).ready(function () {
+            $("#Save").click(function () {
+
+                var value = {
+                    name: $("#Name").val(),
+                    email: $("#Email").val(),
+                    password: $("#Password").val(),
+                };
+
+                swal({
+                    title: "Are you sure?",
+                    text: "Want to Update",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true
+                }).then((willUpdate) => {
+                    if (willUpdate) {
+
+                        $.ajax({
+                            url: '/Post/Student/',
+                            type: 'POST',
+                            dataType: 'json',
+                            data: value,
+                            success: function (data, textStatus, xhr) {
+                                /// alert('Darun Bonofuler Misty: ' + data.status);
+                                swal(data.message);
+                              
+                            },
+                            error: function (xhr, textStatus, errorThrown) {
+                                if (xhr.status == 500) {
+                                    alert('Code Error')
+                                }
+                                else if (xhr.status == 415) {
+                                    alert('Something Went Wrong');
+                                }
+                                else {
+                                    swal("Insert Done", "Thanks For Inserting"+xhr.status);
+                                }
+
+
+                            }
+                        });
+                    }
+                });
+            });
+        });
+
+    </script>
+
+
+</head>
+
+<body>
+    Name : <input type="text" id="Name" placeholder="Name"> <br />
+    Email : <input type="email" id="Email" placeholder="Email"> <br />
+    Password : <input type="password" id="Password" placeholder="Password"> <br />
+    <button id="Save"> Insert </button>
+
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+</body>
+</html>

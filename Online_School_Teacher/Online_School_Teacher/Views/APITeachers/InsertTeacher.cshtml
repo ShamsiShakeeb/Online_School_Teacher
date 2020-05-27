@@ -1,0 +1,94 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TeacherPage</title>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+   
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+
+    <script>
+
+
+        $(document).ready(function () {
+            $("#Save").click(function () {
+
+                ////https://sweetalert2.github.io/#examples
+
+                swal({
+                    title: "Are you sure?",
+                    text: "Want to Update",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true
+                }).then((willDelete) => {
+                    if (willDelete) {
+
+                        var value = {
+                            email: $("#Email").val(),
+                            name: $("#Name").val(),
+                            password: $("#Password").val(),
+                            approve: $("#Approve").val(),
+
+                        };
+
+                        $.ajax({
+                            url: '/api/insert/' + value.email,
+                            type: 'PUT',
+                            dataType: 'json',
+                            data: value,
+                            success: function (data, textStatus, xhr) {
+                                alert('Darun Bonofuler Misty: ' + data.status);
+                            },
+                            error: function (xhr, textStatus, errorThrown) {
+                                if (xhr.status == 500) {
+                                    alert('This Email is Already Stored')
+                                }
+                                else if (xhr.status == 415) {
+                                    alert('Something Went Wrong');
+                                }
+                                else {
+                                    ///  alert('Submit Done: ' + (xhr.status));
+                                    swal("Update Done", "Thanks");
+                                }
+
+
+                            }
+                        });
+                    }
+                });
+
+            });
+        });
+
+    </script>
+
+
+</head>
+<body>
+
+    <input type="text" id="Email" placeholder="Email"> <br />
+    <input type="text" id="Name" placeholder="Name"> <br />
+    <input type="text" id="Password" placeholder="Password"> <br />
+    <input type="text" id="Approve" placeholder="Approve"> <br />
+    <button id="Save" > Submit  </button>
+
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+</body>
+</html>
